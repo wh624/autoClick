@@ -114,7 +114,7 @@ class AutoClicker:
 
         tk.Label(freq_frame, text="点击间隔（毫秒）：", font=("Microsoft YaHei UI", 11, "bold")).grid(row=0, column=0, padx=5)
 
-        self.interval_var = tk.IntVar(value=100)
+        self.interval_var = tk.IntVar(value=10000)
         interval_entry = tk.Entry(
             freq_frame,
             textvariable=self.interval_var,
@@ -134,7 +134,7 @@ class AutoClicker:
         start_time_frame.pack(pady=8)
 
         tk.Label(start_time_frame, text="开始时间：", font=("Microsoft YaHei UI", 10)).grid(row=0, column=0, padx=5)
-        self.start_time_var = tk.StringVar(value="")
+        self.start_time_var = tk.StringVar(value="203000")
         start_time_entry = tk.Entry(
             start_time_frame,
             textvariable=self.start_time_var,
@@ -151,7 +151,7 @@ class AutoClicker:
         end_time_frame.pack(pady=8)
 
         tk.Label(end_time_frame, text="结束时间：", font=("Microsoft YaHei UI", 10)).grid(row=0, column=0, padx=5)
-        self.end_time_var = tk.StringVar(value="")
+        self.end_time_var = tk.StringVar(value="210000")
         end_time_entry = tk.Entry(
             end_time_frame,
             textvariable=self.end_time_var,

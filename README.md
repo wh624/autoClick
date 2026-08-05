@@ -70,7 +70,7 @@ python auto_clicker.py
 pip install pyinstaller
 
 # 编译成单个 exe 文件（推荐）
-pyinstaller --onefile --windowed --name=自动点击器 --icon=NONE auto_clicker.py
+pyinstaller --onefile --windowed --name=autoClicker --icon=app_icon.ico auto_clicker.py
 
 # 编译后的 exe 文件在 dist 目录下
 ```

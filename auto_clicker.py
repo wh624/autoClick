@@ -134,7 +134,7 @@ class AutoClicker:
         start_time_frame.pack(pady=8)
 
         tk.Label(start_time_frame, text="开始时间：", font=("Microsoft YaHei UI", 10)).grid(row=0, column=0, padx=5)
-        self.start_time_var = tk.StringVar(value="203000")
+        self.start_time_var = tk.StringVar(value=(datetime.now() + timedelta(minutes=2)).strftime("%H%M%S"))
         start_time_entry = tk.Entry(
             start_time_frame,
             textvariable=self.start_time_var,

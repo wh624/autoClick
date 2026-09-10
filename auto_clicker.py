@@ -70,13 +70,15 @@ class AutoClicker:
         coord_frame = tk.Frame(self.root)
         coord_frame.pack(pady=12)
 
+        center_x, center_y = self.get_screen_center()
+
         tk.Label(coord_frame, text="X坐标：", font=("Microsoft YaHei UI", 11, "bold")).grid(row=0, column=0, padx=5, sticky="e")
-        self.x_var = tk.IntVar(value=0)
+        self.x_var = tk.IntVar(value=center_x)
         x_entry = tk.Entry(coord_frame, textvariable=self.x_var, width=10, font=("Consolas", 11), validate='key', validatecommand=vcmd)
         x_entry.grid(row=0, column=1, padx=5)
 
         tk.Label(coord_frame, text="Y坐标：", font=("Microsoft YaHei UI", 11, "bold")).grid(row=0, column=2, padx=5, sticky="e")
-        self.y_var = tk.IntVar(value=0)
+        self.y_var = tk.IntVar(value=center_y)
         y_entry = tk.Entry(coord_frame, textvariable=self.y_var, width=10, font=("Consolas", 11), validate='key', validatecommand=vcmd)
         y_entry.grid(row=0, column=3, padx=5)
 
@@ -134,7 +136,7 @@ class AutoClicker:
         start_time_frame.pack(pady=8)
 
         tk.Label(start_time_frame, text="开始时间：", font=("Microsoft YaHei UI", 10)).grid(row=0, column=0, padx=5)
-        self.start_time_var = tk.StringVar(value=(datetime.now() + timedelta(minutes=2)).strftime("%H%M%S"))
+        self.start_time_var = tk.StringVar(value=(datetime.now() + timedelta(minutes=1)).strftime("%H%M%S"))
         start_time_entry = tk.Entry(
             start_time_frame,
             textvariable=self.start_time_var,
@@ -225,6 +227,12 @@ class AutoClicker:
         # 取消所有输入框的焦点
         self.root.focus_set()
 
+    def get_screen_center(self):
+        """获取当前桌面屏幕中心坐标"""
+        screen_w = user32.GetSystemMetrics(0)  # SM_CXSCREEN
+        screen_h = user32.GetSystemMetrics(1)  # SM_CYSCREEN
+        return screen_w // 2, screen_h // 2
+
     def setup_hotkey(self):
         """设置热键监听"""
         keyboard.on_press_key('s', lambda _: self.handle_s_key())
@@ -291,7 +299,7 @@ class AutoClicker:
             # 只支持纯数字格式
             if not time_str.isdigit():
                 return None
-            
+
             if len(time_str) == 6:  # HHMMSS
                 hour = int(time_str[0:2])
                 minute = int(time_str[2:4])
@@ -365,7 +373,7 @@ class AutoClicker:
             if end_time <= start_time:
                 messagebox.showwarning("警告", "结束时间必须在开始时间之后！")
                 return
-        
+
         # 如果只设置了结束时间（没有开始时间），验证结束时间必须在当前时间之后
         if end_time and not start_time:
             now = datetime.now()

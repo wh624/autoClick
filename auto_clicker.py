@@ -5,6 +5,8 @@
 支持定时开始和结束
 """
 
+import os
+import sys
 import tkinter as tk
 from tkinter import messagebox
 import threading
@@ -21,12 +23,39 @@ MOUSEEVENTF_LEFTDOWN = 0x0002
 MOUSEEVENTF_LEFTUP = 0x0004
 
 
+def resource_path(relative_path):
+    """获取资源文件路径，兼容源码运行和 PyInstaller 打包。"""
+    if getattr(sys, "frozen", False):
+        base_path = sys._MEIPASS
+    else:
+        base_path = os.path.dirname(os.path.abspath(__file__))
+    return os.path.join(base_path, relative_path)
+
+
+def set_window_icon(root):
+    """设置窗口标题栏和任务栏图标。"""
+    ico_path = resource_path("app_icon.ico")
+    png_path = resource_path("zjzp.png")
+    try:
+        if os.path.exists(ico_path):
+            root.iconbitmap(default=ico_path)
+    except Exception:
+        pass
+    try:
+        if os.path.exists(png_path):
+            root._icon_photo = tk.PhotoImage(file=png_path)
+            root.iconphoto(True, root._icon_photo)
+    except Exception:
+        pass
+
+
 class AutoClicker:
     def __init__(self, root):
         self.root = root
         self.root.title("自动连点器")
         self.root.geometry("420x550")
         self.root.resizable(False, False)
+        set_window_icon(self.root)
 
         # 设置高DPI支持，让字体更清晰
         try:

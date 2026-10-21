@@ -5,7 +5,7 @@ a = Analysis(
     ['auto_clicker.py'],
     pathex=[],
     binaries=[],
-    datas=[('app_icon.ico', '.'), ('zjzp.png', '.')],
+    datas=[],
     hiddenimports=[],
     hookspath=[],
     hooksconfig={},
@@ -35,5 +35,5 @@ exe = EXE(
     target_arch=None,
     codesign_identity=None,
     entitlements_file=None,
-    icon='app_icon.ico',
+    icon=['app_icon.ico'],
 )
